@@ -14,18 +14,25 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
-
+// Activity for managing user budget goals
 class BudgetActivity : AppCompatActivity() {
 
+    // View binding for accessing layout views
     private lateinit var binding: ActivityBudgetBinding
+    // Adapter for displaying budgets in a RecyclerView
     private lateinit var budgetAdapter: BudgetAdapter
+    // Local list of budgets (synced with Firestore)
     private val budgets = mutableListOf<Budget>()
+    // Currently editing budget (if any)
     private var editingBudget: Budget? = null
+    // Firestore database instance
     private lateinit var db: FirebaseFirestore
+    // Firebase authentication instance
     private lateinit var auth: FirebaseAuth
+    // List of expenses for calculating spent amounts
     private var expenses: List<Expense> = emptyList()
 
-    // Use the same categories for both Budget and Expense
+    // Categories available for budgets and expenses
     private val categories = listOf(
         "Food",
         "Transport",
@@ -41,18 +48,21 @@ class BudgetActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Inflate the layout using view binding
         binding = ActivityBudgetBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialize Firestore and Auth
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        setupRecyclerView()
-        setupCategorySpinner()
-        setupClickListeners()
-        observeBudgetsAndExpenses()
+        setupRecyclerView() // Set up the budget list
+        setupCategorySpinner() // Set up the category dropdown
+        setupClickListeners() // Set up add/update button
+        observeBudgetsAndExpenses() // Listen to Firestore for budgets and expenses
     }
 
+    // Set up the RecyclerView and its adapter
     private fun setupRecyclerView() {
         budgetAdapter = BudgetAdapter(
             budgets = budgets,
@@ -66,11 +76,13 @@ class BudgetActivity : AppCompatActivity() {
         }
     }
 
+    // Set up the category dropdown with available categories
     private fun setupCategorySpinner() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, categories)
         binding.categorySpinner.setAdapter(adapter)
     }
 
+    // Set up the add/update button click logic
     private fun setupClickListeners() {
         binding.addBudgetButton.setOnClickListener {
             if (editingBudget != null) {
@@ -81,9 +93,10 @@ class BudgetActivity : AppCompatActivity() {
         }
     }
 
+    // Listen to Firestore for changes in budgets and expenses
     private fun observeBudgetsAndExpenses() {
         val uid = auth.currentUser?.uid ?: return
-        // Listen to budgets
+        // Listen to budgets for the current user
         db.collection("budgets")
             .whereEqualTo("userId", uid)
             .addSnapshotListener { budgetSnapshot, e ->
@@ -98,6 +111,7 @@ class BudgetActivity : AppCompatActivity() {
             }
     }
 
+    // Listen to Firestore for changes in expenses and update budgets
     private fun loadExpensesAndUpdateBudgets() {
         val uid = auth.currentUser?.uid ?: return
         db.collection("expenses")
@@ -109,8 +123,8 @@ class BudgetActivity : AppCompatActivity() {
             }
     }
 
+    // For each budget, sum expenses for that category and update spentAmount
     private fun updateBudgetsSpentAmount() {
-        // For each budget, sum expenses for that category
         val updatedBudgets = budgets.map { budget ->
             val spent = expenses.filter { it.category == budget.category }.sumOf { it.amount }
             budget.copy(spentAmount = spent)
@@ -118,6 +132,7 @@ class BudgetActivity : AppCompatActivity() {
         budgetAdapter.updateBudgets(updatedBudgets)
     }
 
+    // Add a new budget to Firestore
     private fun addBudget() {
         val category = binding.categorySpinner.text.toString()
         val amountText = binding.amountEditText.text.toString()
@@ -133,7 +148,7 @@ class BudgetActivity : AppCompatActivity() {
             return
         }
 
-        // Check if category already exists
+        // Prevent duplicate category budgets
         if (budgets.any { it.category == category }) {
             Toast.makeText(this, getString(R.string.category_exists), Toast.LENGTH_SHORT).show()
             return
@@ -157,6 +172,7 @@ class BudgetActivity : AppCompatActivity() {
             }
     }
 
+    // Start editing a budget (populate form fields)
     private fun editBudget(budget: Budget) {
         editingBudget = budget
         binding.categorySpinner.setText(budget.category, false)
@@ -165,6 +181,7 @@ class BudgetActivity : AppCompatActivity() {
         binding.categorySpinner.isEnabled = false // Prevent category change when editing
     }
 
+    // Update an existing budget in Firestore
     private fun updateBudget() {
         val budget = editingBudget ?: return
         val amountText = binding.amountEditText.text.toString()
@@ -191,6 +208,7 @@ class BudgetActivity : AppCompatActivity() {
             }
     }
 
+    // Show a confirmation dialog before deleting a budget
     private fun showDeleteConfirmation(budget: Budget) {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.delete_budget))
@@ -202,6 +220,7 @@ class BudgetActivity : AppCompatActivity() {
             .show()
     }
 
+    // Delete a budget from Firestore
     private fun deleteBudget(budget: Budget) {
         db.collection("budgets").document(budget.id).delete()
             .addOnSuccessListener {
@@ -212,6 +231,7 @@ class BudgetActivity : AppCompatActivity() {
             }
     }
 
+    // Clear the form fields and reset the add/update button
     private fun clearForm() {
         binding.categorySpinner.text.clear()
         binding.amountEditText.text?.clear()

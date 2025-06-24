@@ -10,27 +10,32 @@ import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
+// Dialog for creating or editing an expense
 class ExpenseFormDialog(
     context: Context,
     private val expense: Expense?,
     private val onSave: (Map<String, Any>) -> Unit,
-    private val onPickImage: (((Uri) -> Unit) -> Unit)? = null // ✅ this is the correct type
+    private val onPickImage: (((Uri) -> Unit) -> Unit)? = null // Callback for image picking
 ) : AlertDialog(context)
  {
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Layout for the dialog
         val layout = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(40, 40, 40, 40)
         }
 
+        // Input for expense description
         val descriptionInput = EditText(context).apply { hint = "Description" }
+        // Input for expense amount (in Rands)
         val amountInput = EditText(context).apply {
             hint = "Amount (R)"
             inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         }
 
+        // List of categories for the spinner
         val categories = listOf(
             "Food",
             "Transport",
@@ -43,25 +48,27 @@ class ExpenseFormDialog(
             "Utilities",
             "Other"
         )
+        // Spinner for selecting category
         val categorySpinner = Spinner(context).apply {
             adapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, categories)
         }
 
+        // Date picker for expense date
         val datePicker = DatePicker(context)
+        // Input for image URL (optional, filled by image picker)
         val imageInput = EditText(context).apply {
             hint = "Image URL (optional)"
             isFocusable = false
         }
 
-// Now safely set the click listener using `imageInput`
+        // Set up image picker click
         imageInput.setOnClickListener {
             onPickImage?.invoke { uri ->
                 imageInput.setText(uri.toString())
             }
         }
 
-
-
+        // Add all views to the layout
         layout.apply {
             addView(descriptionInput)
             addView(amountInput)
@@ -72,6 +79,7 @@ class ExpenseFormDialog(
 
         setView(layout)
         setTitle(if (expense == null) "Add Expense" else "Edit Expense")
+        // Save button collects all input and calls onSave
         setButton(BUTTON_POSITIVE, "Save") { _, _ ->
             val cal = Calendar.getInstance()
             cal.set(datePicker.year, datePicker.month, datePicker.dayOfMonth)
@@ -94,6 +102,7 @@ class ExpenseFormDialog(
         setButton(BUTTON_NEGATIVE, "Cancel") { _, _ -> }
         super.onCreate(savedInstanceState)
 
+        // If editing, pre-fill fields with existing expense data
         expense?.let {
             descriptionInput.setText(it.description)
             amountInput.setText(it.amount.toString())
