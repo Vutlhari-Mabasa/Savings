@@ -29,5 +29,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AdviceActivity::class.java)
             startActivity(intent)
         }
+
+        binding.budgetButton.setOnClickListener {
+            val intent = Intent(this, BudgetActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

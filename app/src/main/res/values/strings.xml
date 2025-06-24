@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Savings</string>
+    <string name="budget_management">Budget Management</string>
+    <string name="set_budget_goal">Set Budget Goal</string>
+    <string name="category">Category</string>
+    <string name="budget_amount">Budget Amount ($)</string>
+    <string name="add_budget">Add Budget</string>
+    <string name="update_budget">Update Budget</string>
+    <string name="your_budget_goals">Your Budget Goals</string>
+    <string name="budget">Budget</string>
+    <string name="spent">Spent</string>
+    <string name="remaining">Remaining</string>
+    <string name="on_track">On Track</string>
+    <string name="over_budget">Over Budget!</string>
+    <string name="delete_budget">Delete Budget</string>
+    <string name="delete_budget_confirmation">Are you sure you want to delete the budget for %s?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="budget_added">Budget added successfully</string>
+    <string name="budget_updated">Budget updated successfully</string>
+    <string name="budget_deleted">Budget deleted successfully</string>
+    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="enter_valid_amount">Please enter a valid amount</string>
+    <string name="category_exists">Budget for this category already exists</string>
+    <string name="enter_amount">Please enter an amount</string>
 </resources>

@@ -20,6 +20,9 @@
             android:name=".AdviceActivity"
             android:exported="false" />
         <activity
+            android:name=".BudgetActivity"
+            android:exported="false" />
+        <activity
             android:name=".ExpenseActivity"
             android:exported="false" />
         <activity
