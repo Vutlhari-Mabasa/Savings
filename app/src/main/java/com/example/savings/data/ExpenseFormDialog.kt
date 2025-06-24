@@ -31,7 +31,18 @@ class ExpenseFormDialog(
             inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         }
 
-        val categories = listOf("Food", "Transport", "Health", "Shopping")
+        val categories = listOf(
+            "Food",
+            "Transport",
+            "Health",
+            "Shopping",
+            "Housing Fund",
+            "Emergency Fund",
+            "Bills",
+            "Entertainment",
+            "Utilities",
+            "Other"
+        )
         val categorySpinner = Spinner(context).apply {
             adapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, categories)
         }

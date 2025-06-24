@@ -25,8 +25,19 @@ class BudgetActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private var expenses: List<Expense> = emptyList()
 
-    // Use the same categories as ExpenseFormDialog
-    private val categories = listOf("Food", "Transport", "Health", "Shopping")
+    // Use the same categories for both Budget and Expense
+    private val categories = listOf(
+        "Food",
+        "Transport",
+        "Health",
+        "Shopping",
+        "Housing Fund",
+        "Emergency Fund",
+        "Bills",
+        "Entertainment",
+        "Utilities",
+        "Other"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
