@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/budget_amount"
+                android:hint="Budget Amount (R)"
                 app:boxStrokeColor="#60A5FA"
                 app:hintTextColor="#60A5FA">
 

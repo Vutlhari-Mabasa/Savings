@@ -27,7 +27,7 @@ class ExpenseFormDialog(
 
         val descriptionInput = EditText(context).apply { hint = "Description" }
         val amountInput = EditText(context).apply {
-            hint = "Amount"
+            hint = "Amount (R)"
             inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         }
 

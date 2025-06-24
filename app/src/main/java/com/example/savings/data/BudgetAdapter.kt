@@ -39,9 +39,9 @@ class BudgetAdapter(
         val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
 
         holder.categoryText.text = budget.category
-        holder.budgetAmountText.text = "Budget: ${currencyFormat.format(budget.budgetAmount)}"
-        holder.spentAmountText.text = "Spent: ${currencyFormat.format(budget.spentAmount)}"
-        holder.remainingText.text = "Remaining: ${currencyFormat.format(budget.remainingAmount)}"
+        holder.budgetAmountText.text = "Budget: R${String.format("%.2f", budget.budgetAmount)}"
+        holder.spentAmountText.text = "Spent: R${String.format("%.2f", budget.spentAmount)}"
+        holder.remainingText.text = "Remaining: R${String.format("%.2f", budget.remainingAmount)}"
 
         // Set progress bar
         holder.progressBar.progress = budget.progressPercentage.toInt()
