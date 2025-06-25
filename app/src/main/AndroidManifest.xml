@@ -5,6 +5,8 @@
     <!-- For Android 12 and below -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- For Android 13+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +22,14 @@
             android:name=".AdviceActivity"
             android:exported="false" />
         <activity
+            android:name=".AuthChoiceActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".BudgetActivity"
             android:exported="false" />
         <activity
@@ -27,16 +37,10 @@
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" /> <!-- RegisterActivity as launcher -->
+            android:exported="false" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />

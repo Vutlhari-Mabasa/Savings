@@ -1,6 +1,5 @@
 package com.example.savings
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -28,15 +27,19 @@ class ExpenseActivity : AppCompatActivity() {
 
     private var imagePickCallback: ((Uri) -> Unit)? = null
 
-    private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK && result.data?.data != null) {
-            imagePickCallback?.invoke(result.data!!.data!!)
+    private val imagePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.let { uri ->
+                imagePickCallback?.invoke(uri)
+            }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_expense)  // Your activity layout XML
+        setContentView(R.layout.activity_expense)
 
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
@@ -46,7 +49,7 @@ class ExpenseActivity : AppCompatActivity() {
             expenses,
             onDelete = { deleteExpense(it.id) },
             onEdit = { showEditExpenseDialog(it) },
-            onViewImage = { showImageDialog(it.imageUrl) } // 👈 this uses your Glide-based full screen image
+            onViewImage = { showImageDialog(it.imageUrl) }
         )
 
         val recyclerView = findViewById<RecyclerView>(R.id.expenseRecyclerView)
@@ -76,21 +79,21 @@ class ExpenseActivity : AppCompatActivity() {
             }
     }
 
-    private fun deleteExpense(id: String) {
-        AlertDialog.Builder(this)
-            .setTitle("Delete Expense")
-            .setMessage("Are you sure?")
-            .setPositiveButton("Yes") { _, _ ->
-                db.collection("expenses").document(id).delete()
+    private fun deleteExpense(expenseId: String) {
+        db.collection("expenses").document(expenseId)
+            .delete()
+            .addOnSuccessListener {
+                // Expense deleted successfully
             }
-            .setNegativeButton("Cancel", null)
-            .show()
+            .addOnFailureListener { e ->
+                // Handle error
+            }
     }
 
     private fun showAddExpenseDialog() {
         val dialog = ExpenseFormDialog(
             context = this,
-            expense = null, // ✅ FIXED: should be null for new expense
+            expense = null,
             onSave = { db.collection("expenses").add(it) },
             onPickImage = { callback ->
                 imagePickCallback = callback
@@ -98,30 +101,39 @@ class ExpenseActivity : AppCompatActivity() {
                 imagePickerLauncher.launch(intent)
             }
         )
-        dialog.show() // ✅ Don't forget to show the dialog
+        dialog.show()
     }
-
-
 
     private fun showEditExpenseDialog(expense: Expense) {
         val dialog = ExpenseFormDialog(
             context = this,
             expense = expense,
-            onSave = { db.collection("expenses").document(expense.id).set(it) },
+            onSave = { updatedExpense ->
+                db.collection("expenses").document(expense.id).set(updatedExpense)
+            },
             onPickImage = { callback ->
                 imagePickCallback = callback
                 val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 imagePickerLauncher.launch(intent)
             }
         )
-        dialog.show() // ✅ missing in your code
+        dialog.show()
     }
 
-
     private fun showImageDialog(url: String?) {
-        if (url == null) return
+        if (url.isNullOrEmpty()) return
+
+        val dialog = android.app.AlertDialog.Builder(this)
+            .create()
+
         val imageView = ImageView(this)
-        Glide.with(this).load(Uri.parse(url)).into(imageView)
-        AlertDialog.Builder(this).setView(imageView).show()
+        imageView.scaleType = ImageView.ScaleType.FIT_CENTER
+
+        Glide.with(this)
+            .load(url)
+            .into(imageView)
+
+        dialog.setView(imageView)
+        dialog.show()
     }
 }

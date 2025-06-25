@@ -16,8 +16,7 @@ class ExpenseFormDialog(
     private val expense: Expense?,
     private val onSave: (Map<String, Any>) -> Unit,
     private val onPickImage: (((Uri) -> Unit) -> Unit)? = null // Callback for image picking
-) : AlertDialog(context)
- {
+) : AlertDialog(context) {
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {

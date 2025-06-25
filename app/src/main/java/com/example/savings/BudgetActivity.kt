@@ -187,7 +187,7 @@ class BudgetActivity : AppCompatActivity() {
         val amountText = binding.amountEditText.text.toString()
 
         if (amountText.isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_amount), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -197,8 +197,8 @@ class BudgetActivity : AppCompatActivity() {
             return
         }
 
-        val updatedBudget = budget.copy(budgetAmount = amount)
-        db.collection("budgets").document(budget.id).set(updatedBudget)
+        db.collection("budgets").document(budget.id)
+            .update("budgetAmount", amount)
             .addOnSuccessListener {
                 clearForm()
                 Toast.makeText(this, getString(R.string.budget_updated), Toast.LENGTH_SHORT).show()
@@ -208,21 +208,22 @@ class BudgetActivity : AppCompatActivity() {
             }
     }
 
-    // Show a confirmation dialog before deleting a budget
+    // Show confirmation dialog before deleting a budget
     private fun showDeleteConfirmation(budget: Budget) {
         AlertDialog.Builder(this)
-            .setTitle(getString(R.string.delete_budget))
-            .setMessage(getString(R.string.delete_budget_confirmation, budget.category))
-            .setPositiveButton(getString(R.string.delete)) { _, _ ->
+            .setTitle("Delete Budget")
+            .setMessage("Are you sure you want to delete the budget for ${budget.category}?")
+            .setPositiveButton("Delete") { _, _ ->
                 deleteBudget(budget)
             }
-            .setNegativeButton(getString(R.string.cancel), null)
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
     // Delete a budget from Firestore
     private fun deleteBudget(budget: Budget) {
-        db.collection("budgets").document(budget.id).delete()
+        db.collection("budgets").document(budget.id)
+            .delete()
             .addOnSuccessListener {
                 Toast.makeText(this, getString(R.string.budget_deleted), Toast.LENGTH_SHORT).show()
             }
@@ -231,12 +232,12 @@ class BudgetActivity : AppCompatActivity() {
             }
     }
 
-    // Clear the form fields and reset the add/update button
+    // Clear the form fields and reset editing state
     private fun clearForm() {
-        binding.categorySpinner.text.clear()
+        binding.categorySpinner.text?.clear()
         binding.amountEditText.text?.clear()
+        editingBudget = null
         binding.addBudgetButton.text = getString(R.string.add_budget)
         binding.categorySpinner.isEnabled = true
-        editingBudget = null
     }
 } 
