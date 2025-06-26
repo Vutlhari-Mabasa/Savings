@@ -127,7 +127,7 @@ video link: https://youtube.com/shorts/MRH53fozgf4?si=x48mb7u4PeQQHdHO
 
 
 
-###License & Contribution
+### License & Contribution
 
 > MIT License – Contributions welcome!  
 > Pull requests should follow the branch naming convention `feature/your-feature`.
