@@ -41,7 +41,6 @@ video link: https://youtube.com/shorts/MRH53fozgf4?si=x48mb7u4PeQQHdHO
 |--------------------------|--------------------------------------------|
 | Firebase Auth            | User login & signup                        |
 | Firestore                | Store and sync transactions, budgets       |
-| Firebase Storage         | Profile images, attachments (future)       |
 | Firebase Analytics       | Track usage flow and feature adoption      |
 | Firebase Messaging       | Tips, reminders, financial nudges          |
 | Firebase Crashlytics     | Crash monitoring and debugging             |
@@ -50,7 +49,7 @@ video link: https://youtube.com/shorts/MRH53fozgf4?si=x48mb7u4PeQQHdHO
 
 - Firebase Auth handles login/signup.
 - Persistent sessions across app restarts.
-- Email/password or biometric login (future).
+- Email/password or biometric login .
 
 ### Sync Flow
 
@@ -106,16 +105,15 @@ video link: https://youtube.com/shorts/MRH53fozgf4?si=x48mb7u4PeQQHdHO
 | Real-Time Sync             |  Completed  |
 
 
-## Future Enhancements
+##  Enhancements
 
 - Firebase Cloud Functions for server logic
-- AI-powered budgeting assistant
-- Gamification (spending streaks, badges)
-- Shared household budgeting mode
-- In-app premium upgrades (IAP)
+- Search and filter
+- Reminder to  track expenses
+- Savings progress bar
+- Graph to track expenses via category
 
-
-
+  
 ## Summary
 
 | Aspect             | Details                                  |
