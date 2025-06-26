@@ -33,6 +33,9 @@
             android:name=".BudgetActivity"
             android:exported="false" />
         <activity
+            android:name=".CompareSpendingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ExpenseActivity"
             android:exported="false" />
         <activity

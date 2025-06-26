@@ -86,6 +86,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.compareSpendingButton.setOnClickListener {
+            val intent = Intent(this, CompareSpendingActivity::class.java)
+            startActivity(intent)
+        }
+
         // Set up navigation drawer
         setupNavigationDrawer()
 
