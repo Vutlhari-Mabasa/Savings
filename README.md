@@ -1,5 +1,4 @@
-video link: https://youtube.com/shorts/MRH53fozgf4?si=x48mb7u4PeQQHdHO
-
+video link: https://youtube.com/shorts/6Xb65Xs2jf0?si=8ekbRF8Uky6tD5HG
 
 # SmartSpend – Mobile Budgeting App
 
