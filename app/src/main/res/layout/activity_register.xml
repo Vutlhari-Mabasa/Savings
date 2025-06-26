@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:text="Create Account"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/secondary"
+                android:backgroundTint="@color/primary"
                 app:cornerRadius="24dp"
                 android:layout_marginBottom="16dp" />
 

@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.savings.R
 
 class ExpenseAdapter(
-    private val expenses: List<Expense>,
+    private var expenses: List<Expense>,
     private val onDelete: (Expense) -> Unit,
     private val onEdit: (Expense) -> Unit,
     private val onViewImage: (Expense) -> Unit // ✅ NEW
@@ -59,4 +59,9 @@ class ExpenseAdapter(
     }
 
     override fun getItemCount(): Int = expenses.size
+
+    fun updateList(newExpenses: List<Expense>) {
+        this.expenses = newExpenses
+        notifyDataSetChanged()
+    }
 }

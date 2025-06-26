@@ -4,7 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -56,9 +59,19 @@ class ExpenseActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        findViewById<Button>(R.id.addExpenseBtn).setOnClickListener {
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.addExpenseBtn).setOnClickListener {
             showAddExpenseDialog()
         }
+
+        // Search logic
+        val searchEditText = findViewById<EditText>(R.id.searchEditText)
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterExpenses(s.toString())
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         loadExpenses()
     }
@@ -135,5 +148,22 @@ class ExpenseActivity : AppCompatActivity() {
 
         dialog.setView(imageView)
         dialog.show()
+    }
+
+    private fun filterExpenses(query: String) {
+        val filtered = if (query.isBlank()) {
+            expenses
+        } else {
+            expenses.filter {
+                it.description.contains(query, ignoreCase = true) ||
+                it.category.contains(query, ignoreCase = true) ||
+                it.amount.toString().contains(query, ignoreCase = true)
+            }
+        }
+        adapter.apply {
+            (this as? com.example.savings.data.ExpenseAdapter)?.let {
+                it.updateList(filtered)
+            }
+        }
     }
 }
