@@ -1,8 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme (light or default). -->
     <style name="Base.Theme.Savings" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Status bar color to match your dark background -->
+        <item name="android:statusBarColor">@color/background_dark</item>
+
+        <!-- Light status bar icons? Set false for dark background -->
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- You can add primary colors if needed -->
+        <!-- <item name="colorPrimary">@color/primary</item> -->
     </style>
 
     <style name="Theme.Savings" parent="Base.Theme.Savings" />

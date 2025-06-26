@@ -21,9 +21,11 @@ class AuthChoiceActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Configure Firebase Auth to persist user sessions for 2 months
-        // Firebase Auth automatically handles persistence, but we can configure it
-        // The default persistence is LOCAL, which persists until explicitly signed out
+        // Firebase Auth automatically handles persistent login with these behaviors:
+        // 1. LOCAL persistence (default): User stays logged in until explicitly signed out
+        // 2. Session persists across app restarts, device reboots, and app updates
+        // 3. Session typically lasts for 1 year unless user signs out
+        // 4. No additional configuration needed - Firebase handles everything automatically
 
         // Check if user is already logged in
         checkUserLoginStatus()
@@ -37,11 +39,11 @@ class AuthChoiceActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             // User is logged in, go to main activity
-            // Firebase Auth automatically handles session persistence
-            // Users will stay logged in until they explicitly sign out or the session expires
+            // This happens automatically when the app starts if user was previously logged in
+            // Firebase Auth automatically restores the user session from local storage
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish()
+            finish() // Close this activity so user can't go back to auth choice
         }
     }
 

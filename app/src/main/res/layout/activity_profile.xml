@@ -33,6 +33,43 @@
         android:textSize="14sp"
         android:layout_marginBottom="32dp" />
 
+    <!-- Notification Settings -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp"
+        android:padding="16dp"
+        android:background="#1F2937"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Daily Expense Reminders"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <Switch
+            android:id="@+id/notificationSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get reminded daily at 8:00 PM to add your expenses"
+        android:textColor="#9CA3AF"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginBottom="32dp" />
+
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
