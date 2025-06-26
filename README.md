@@ -24,11 +24,12 @@ SmartSpend is developed using Android Studio with Kotlin, following Material Des
 •	Context-aware tips, tooltips, and alerts.
 •	Adaptive UI for dark mode, large text, and accessibility.
  Architecture
+ Bill reminder push notification
 •	Modular structure with Activities and Fragments
 •	MVVM pattern (planned or implemented) for clean state management
 •	Firebase as the backend (authentication, Firestore/Realtime DB, storage)
 
- 3. Firebase Integration
+ 4. Firebase Integration
 SmartSpend is fully integrated with Firebase to enhance functionality, performance, and scalability.
  Features Enabled
 Firebase Feature	Usage
@@ -47,7 +48,8 @@ Firebase Crashlytics	Monitor and debug crashes and app issues
 •	When online, the app pushes updates to Cloud Firestore.
 •	Real-time sync across devices ensures consistent data views.
 
- 4. GitHub Utilization
+
+ 5. GitHub Utilization
 GitHub is used for source code hosting, issue tracking, and collaborative development.
  Repository Structure
 /app/src/main/java/      → Kotlin source files  
@@ -58,8 +60,8 @@ GitHub is used for source code hosting, issue tracking, and collaborative develo
 •	main → Production-ready, Firebase-linked code
 •	dev → Integration testing with Firebase updates
 •	feature/* → Per-feature development (e.g., feature/firebase-login)
- 5. GitHub Actions (CI/CD)
-    
+
+ 6. GitHub Actions (CI/CD)
 GitHub Actions automates project workflows to maintain code quality and speed up development.
 🛠 Workflows in Use
  Build and Test
@@ -86,16 +88,16 @@ You can add:
 
 7. Key Features Implemented
 Feature	Status
-User authentication (Firebase)	✅ Completed
-Expense tracking	✅ Completed
-Budget setting and reminders	✅ Completed
-Pie chart dashboard	✅ Completed
-Offline support	✅ In Progress
-Real-time sync via Firebase	✅ Completed
-Data visualization	✅ Completed
-Settings & preferences	✅ Completed
+User authentication (Firebase)	 Completed
+Expense tracking	Completed
+Budget setting and reminders	 Completed
+Pie chart dashboard	 Completed
+Real-time sync via Firebase	 Completed
+Data visualization	 Completed
+Settings & preferences	 Completed
+Bill Reminder Completed
 
- 8. Future Enhancements
+ 9. Future Enhancements
 •	Firebase Dynamic Links for sharing financial goals
 •	Firebase Functions for server-side logic and summarizations
 •	In-app purchase (IAP) support for premium financial tools
@@ -111,4 +113,7 @@ Version Control	GitHub
 Design	Material Design 3, card-based UI, modern UX
 Security	Firebase Rules, biometric login, encrypted storage planned
 Users	Budgeters, students, small business owners, individuals with debt/saving goals
+
+
+
 
