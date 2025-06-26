@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Savings</string>
+    <string name="app_name">SmartSpend</string>
     <string name="budget_management">Budget Management</string>
     <string name="set_budget_goal">Set Budget Goal</string>
     <string name="category">Category</string>

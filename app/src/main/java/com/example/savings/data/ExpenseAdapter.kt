@@ -1,5 +1,6 @@
 package com.example.savings.data
 
+import android.net.Uri
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import java.io.File
 import com.example.savings.R
 
 class ExpenseAdapter(
@@ -46,9 +48,14 @@ class ExpenseAdapter(
         // ✅ Load image if available
         if (!item.imageUrl.isNullOrBlank()) {
             holder.imgReceipt.visibility = View.VISIBLE
-            Glide.with(holder.itemView.context)
-                .load(item.imageUrl)
-                .into(holder.imgReceipt)
+            val url = item.imageUrl
+            val context = holder.itemView.context
+            val glideRequest = when {
+                url.startsWith("/", ignoreCase = true) -> Glide.with(context).load(File(url))
+                url.startsWith("content://", ignoreCase = true) -> Glide.with(context).load(Uri.parse(url))
+                else -> Glide.with(context).load(url)
+            }
+            glideRequest.into(holder.imgReceipt)
 
             holder.imgReceipt.setOnClickListener {
                 onViewImage(item)

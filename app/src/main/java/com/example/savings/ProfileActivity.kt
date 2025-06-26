@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.savings.R.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import androidx.appcompat.app.AppCompatDelegate
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -23,7 +23,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(layout.activity_profile)
 
         val emailText = findViewById<TextView>(id.emailText)
-        val statusText = findViewById<TextView>(id.statusText) // Optional: for showing if email is verified
+        val statusText = findViewById<TextView>(id.statusText)
         val logoutButton = findViewById<Button>(id.logoutButton)
         notificationSwitch = findViewById(R.id.notificationSwitch)
 
